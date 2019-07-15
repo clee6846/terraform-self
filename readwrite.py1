@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+import pprint
+import sys, getopt
+import operator
+text = "Am terminated it excellence invitation projection as. She graceful shy believed distance use nay. Lively is people so basket ladies window expect. Supply as so period it enough income he genius. Themselves acceptance bed sympathize get dissimilar way admiration son. Design for are edward regret met lovers. This are calm case roof and. Death there mirth way the noisy merit. Piqued shy spring nor six though mutual living ask extent. Replying of dashwood advanced ladyship smallest disposal or. Attempt offices own improve now see. Called person are around county talked her esteem. Those fully these way nay thing seems. At as in understood an remarkably solicitude. Mean them very seen she she. Use totally written the observe pressed justice. Instantly cordially far intention recommend estimable yet her his. Ladies stairs enough esteem add fat all enable. Needed its design number winter see. Oh be me sure wise sons no. Piqued ye of am spirit regret. Stimulated discretion impossible admiration in particular conviction up. Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity. Delay rapid joy share allow age manor six. Went why far saw many knew. Exquisite excellent son gentleman acuteness her. Do is voice total power mr ye might round still. In alteration insipidity impression by travelling reasonable up motionless. Of regard warmth by unable sudden garden ladies. No kept hung am size spot no. Likewise led and dissuade rejoiced welcomed husbands boy. Do listening on he suspected resembled. Water would still if to. Position boy required law moderate was may. Her old collecting she considered discovered. So at parties he warrant oh staying. Square new horses and put better end. Sincerity collected happiness do is contented. Sigh ever way now many. Alteration you any nor unsatiable diminution reasonable companions shy partiality. Leaf by left deal mile oh if easy. Added woman first get led joy not early jokes. Marianne or husbands if at stronger ye. Considered is as middletons uncommonly. Promotion perfectly ye consisted so. His chatty dining for effect ladies active. Equally journey wishing not several behaved chapter she two sir. Deficient procuring favourite extensive you two. Yet diminution she impossible understood age. She who arrival end how fertile enabled. Brother she add yet see minuter natural smiling article painted. Themselves at dispatched interested insensible am be prosperous reasonably it. In either so spring wished. Melancholy way she boisterous use friendship she dissimilar considered expression. Sex quick arose mrs lived. Mr things do plenty others an vanity myself waited to. Always parish tastes at as mr father dining at. John draw real poor on call my from. May she mrs furnished discourse extremely. Ask doubt noisy shade guest did built her him. Ignorant repeated hastened it do. Consider bachelor he yourself expenses no. Her itself active giving for expect vulgar months. Discovery commanded fat mrs remaining son she principle middleton neglected. Be miss he in post sons held. No tried is defer do money scale rooms. Arrived compass prepare an on as. Reasonable particular on my it in sympathize. Size now easy eat hand how. Unwilling he departure elsewhere dejection at. Heart large seems may purse means few blind. Exquisite newspaper attending on certainty oh suspicion of. He less do quit evil is. Add matter family active mutual put wishes happen."
+
+def print_Top_words():
+   import operator
+   count = {}
+   for word in text.split():
+   #line = line.rstrip()
+      print (word)
+      count.setdefault(word, 0)
+      count[word] += 1
+
+   sorted_count= sorted(count.items(), key=operator.itemgetter(0), reverse=True)
+   for i in sorted_count:
+       print (i[0], i[1])
+
+def print_top_words(filename):
+   count ={}
+   file = open (filename, 'r')
+   file1 = open ('test.txt','w')
+   for line in file:
+      line = line.rstrip()
+      for word in line.split(" "):
+          count.setdefault(word, 0)
+          count[word] = count[word] + 1
+   file1.write (count)
+
+
+def count_chars(filename):
+   count ={}
+   file = open (filename, 'r')
+   for line in file:
+      for char in line:
+         count.setdefault(char, 0)
+         count[char] = count[char] + 1
+   pprint.pprint (count)
+
+def count_Capital(filename):
+   count = 0
+   for line in open(filename):
+      for char in line:
+          count += (1 if char.isupper() else 0)
+   print ("\n The number of Capital letters are : ",count) 
+
+def compare_http_code(filename):
+   count = {'PUT':0,'GET':0, 'DELETE':0, 'POST':0}
+   file = open(filename,'r')
+   for line in file:
+     print(line)
+     if "GET" in line:
+       count['GET'] += 1
+     elif "PUT" in line:
+       count['PUT'] += 1
+     elif "DELETE" in line:
+       count['DELETE'] += 1
+     elif "POST" in line:
+       count['POST'] += 1    
+   ordered_count= sorted(count.items(), key=operator.itemgetter(1), reverse=True)
+   for k in ordered_count:
+      print (k[0]," : ",k[1])
+
+def main(argv):
+   help = 'robin.py -f <filename>  -l <length>'
+   help1 = 'eg ./robin.py -f "/usr/local/bin"'
+   filename = ''
+   try:
+      opts, args = getopt.getopt(argv,"hf",["filename="])
+   except getopt.GetoptError:
+      print (help)
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print (help)
+         print (help1)
+         sys.exit()
+      elif opt in ("-f", "--filename"):
+         filename = args[0]
+   #      print_top_words (filename)
+   #      count_chars (filename)
+   #      count_Capital (filename)
+         compare_http_code(filename)
+   #         print_Top_words()
+
+if __name__ == "__main__":
+   main(sys.argv[1:])

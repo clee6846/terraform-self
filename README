@@ -1,0 +1,13 @@
+**Layout**
+
+    terraform/<account>/<region>/<vpc>.vars.tf
+
+- Common variables should go in the base directory
+- Account specific variables should go in the <account> subdirectory
+- Region specific varables should go in the <account>/<region> subdirectory
+- VPC specific variables should go in the <account>/<region>/vpc.vars.tf flie
+
+**Files**
+- *.tf - terraform 'code'. This is what defines infrastructure.
+- *.vars.tf - terrform variables files
+- terrayaki.py - Wrapper for terraform. This defines builds from the templates.
